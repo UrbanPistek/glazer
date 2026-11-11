@@ -1,0 +1,205 @@
+:root {
+  color-scheme: dark;
+  --bg: #121418;
+  --panel: #1b1f27;
+  --panel-2: #222833;
+  --border: #323846;
+  --text: #e8eaed;
+  --muted: #9aa3b2;
+  --accent: #5b8def;
+  --warn: #e0b44a;
+  --danger: #e05a5a;
+  --ok: #5fbf7a;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+button.primary {
+  background: #2c4d8c;
+  border-color: #3d6cc2;
+}
+
+.workbench {
+  display: grid;
+  grid-template-rows: 44px 1fr 28px;
+  height: 100vh;
+}
+
+.main {
+  display: grid;
+  /* Actual widths are set inline by Workbench (resizable dividers). */
+  grid-template-columns: minmax(0, 1fr) 6px 280px 6px 280px;
+  min-height: 0;
+}
+
+.toolbar,
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.status {
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.panel {
+  border-left: 1px solid var(--border);
+  background: var(--panel);
+  overflow: auto;
+  min-height: 0;
+}
+
+.panel h2 {
+  margin: 0;
+  padding: 10px 12px;
+  /* Fixed height so the Layers and Properties titles are always the same
+     height, even when one contains a button (e.g. "+ New layer"). */
+  height: 40px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: none;
+}
+
+.layer-row {
+  display: grid;
+  grid-template-columns: 18px 18px 18px 1fr auto;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Small square icon buttons (V, E, D, arrows) — fixed size, centered glyph. */
+.icon-btn {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.icon-btn.off {
+  opacity: 0.3;
+}
+
+/* Keeps the grid column aligned where a button is intentionally absent. */
+.icon-btn.placeholder {
+  visibility: hidden;
+}
+
+.toolbar .logo {
+  height: 18px;
+  width: 18px;
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #000;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.error {
+  color: var(--danger);
+}
+
+canvas.preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0e1116;
+}
+
+/* Off-white "paper" grid theme (toolbar toggle). */
+canvas.preview.light {
+  background: #f5f1e6;
+}
+
+/* Layer row that is selected or owns a selected path. */
+.layer-row.active {
+  background: var(--panel-2);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+/* Panel resize divider between grid columns (a <button> for a11y). Blends
+   with the side panels so no dark strip is visible; lights up on hover. */
+.resizer {
+  cursor: col-resize;
+  background: var(--panel);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  touch-action: none;
+  user-select: none;
+}
+
+.resizer:hover,
+.resizer:focus-visible {
+  background: var(--accent);
+  border: none;
+  outline: none;
+}

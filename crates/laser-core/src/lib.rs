@@ -1,0 +1,41 @@
+//! # laser-core
+//!
+//! The canonical, UI- and firmware-independent data model for Glazer.
+//!
+//! Everything here is expressed in **millimetres** with Y pointing up: the
+//! importers convert source units into mm exactly once, and the planner,
+//! estimator and G-code writer never deal with source units again. Keeping a
+//! single canonical unit is what makes the rest of the pipeline trustworthy —
+//! a unit bug can only live in one place (the import boundary).
+//!
+//! Pipeline position: `laser-import*` produces a [`VectorDocument`] (this
+//! crate), which becomes a [`Project`] with process [`layers`]. The planner
+//! turns that into motion, the estimator into time, and the postprocessor
+//! into G-code.
+
+pub mod color;
+pub mod document;
+pub mod error;
+pub mod flatten;
+pub mod geom;
+pub mod ids;
+pub mod layers;
+pub mod project;
+pub mod style;
+pub mod units;
+
+pub use color::{
+    aci_to_rgb, match_color, standard_palette, ColorMatch, ColorPreset, Rgba8, DEFAULT_COLOR_TOLERANCE,
+};
+pub use document::{EntityCount, ImportReport, ImportResult, PathObject, VectorDocument};
+pub use error::CoreError;
+pub use flatten::{flatten_geometry, polyline_length};
+pub use geom::{Affine, Bounds2D, PathGeometry, PathSegment, PointMm, Subpath};
+pub use ids::{DocumentId, LayerId, ObjectId};
+pub use layers::{AssignmentRule, LaserMode, OperationKind, ProcessLayer};
+pub use project::{
+    DisplaySettings, ExportSettings, GridBackground, JobSettings, MachineSettings, OriginMode,
+    Project, APP_VERSION, PROJECT_SCHEMA_VERSION,
+};
+pub use style::{ImportWarning, SourceFormat, SourceMetadata, SourceStyle};
+pub use units::{LengthUnit, UnitCertainty, UnitMetadata};
